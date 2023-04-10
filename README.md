@@ -1,4 +1,4 @@
-### React Assessment
+# React Assessment
 
 ## Vercel Link - https://react-task-one-psi.vercel.app/
 
