@@ -30,28 +30,42 @@ function Calculator() {
       <br/>
    
     <form onSubmit={handleSubmit}>
-      <input type="text" value={input} onChange={handleInput} />
-      
-      <div>
+    <div>
               <h1 className='head'>Calculator</h1>
       </div>
+      <input type="text" value={input} onChange={handleInput} />
       
-       
+      <br/>
+      <br/>
+      
+      <div className='butt'>
       <div>
-        <button type="button" onClick={() => setInput('')}>
-          CLEAR
+        
+        <button type="button" onClick={() => setInput(input + '+')}>
+          ADD
         </button>
-        <button type="button" onClick={() => setInput(input + '7')}>
-          7
+        <button type="button" onClick={() => setInput(input + '-')}>
+          SUBTRACT
         </button>
-        <button type="button" onClick={() => setInput(input + '8')}>
-          8
-        </button>
-        <button type="button" onClick={() => setInput(input + '9')}>
-          9
+        <button type="button" onClick={() => setInput(input + '*')}>
+          MULTIPLY
         </button>
         <button type="button" onClick={() => setInput(input + '/')}>
           DIVIDE
+        </button>
+        
+        
+      </div>
+      <br/>
+      <div>
+      <button type="button" onClick={() => setInput(input + '1')}>
+          1
+        </button>
+        <button type="button" onClick={() => setInput(input + '2')}>
+          2
+        </button>
+        <button type="button" onClick={() => setInput(input + '3')}>
+          3
         </button>
       </div>
       <div>
@@ -64,32 +78,27 @@ function Calculator() {
         <button type="button" onClick={() => setInput(input + '6')}>
           6
         </button>
-        <button type="button" onClick={() => setInput(input + '*')}>
-          MULTIPLY
-        </button>
+        
       </div>
       <div>
-        <button type="button" onClick={() => setInput(input + '1')}>
-          1
+      <button type="button" onClick={() => setInput(input + '7')}>
+          7
         </button>
-        <button type="button" onClick={() => setInput(input + '2')}>
-          2
+        <button type="button" onClick={() => setInput(input + '8')}>
+          8
         </button>
-        <button type="button" onClick={() => setInput(input + '3')}>
-          3
-        </button>
-        <button type="button" onClick={() => setInput(input + '-')}>
-          SUBTRACT
+        <button type="button" onClick={() => setInput(input + '9')}>
+          9
         </button>
       </div>
+      <br/>
       <div>
-        <button type="button" onClick={() => setInput(input + '0')}>
-          0
+      <button type="clear" onClick={() => setInput('')}>
+          CLEAR
         </button>
         <button type="submit">=</button>
-        <button type="button" onClick={() => setInput(input + '+')}>
-          ADD
-        </button>
+      </div>
+      
       </div>
     </form>
     </div>

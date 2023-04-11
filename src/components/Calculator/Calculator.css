@@ -1,3 +1,6 @@
+.butt{
+  text-align: center;
+}
 head{
   text-align: centre;
 }
@@ -43,12 +46,14 @@ input {
   
   button {
     font-size: 2rem;
-    width: 20%;
+    width: 12%;
     height: 5rem;
     border: 2px;
     outline: none;
     background-color: #eee;
     transition: all 0.2s ease;
+    margin:auto;
+    
   }
   
   button:hover {
@@ -64,7 +69,7 @@ input {
   }
   
   button[type="submit"] {
-    background-color: #f0ad4e;
+    background-color: #66cb57;
     color: #fff;
   }
   
@@ -76,106 +81,16 @@ input {
     background-color: #d4993c;
   }
   
-  button[type="submit"]:focus {
-    box-shadow: 0 0 0 3px rgba(240, 173, 78, 0.5);
-  }
-  
-  button.operator {
-    background-color: #f0ad4e;
+  button[type="clear"] {
+    background-color: #9bc8e9;
     color: #fff;
   }
   
-  button.operator:hover {
+  button[type="clear"]:hover {
     background-color: #eea043;
   }
-  
-  button.operator:active {
+
+  button[type="clear"]:active {
     background-color: #d4993c;
   }
-  
-  button.operator:focus {
-    box-shadow: 0 0 0 3px rgba(240, 173, 78, 0.5);
-  }
-  
-  button.clear {
-    background-color: #d9534f;
-    color: #fff;
-  }
-  
-  button.clear:hover {
-    background-color: #c9302c;
-  }
-  
-  button.clear:active {
-    background-color: #ac2925;
-  }
-  
-  button.clear:focus {
-    box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.5);
-  }
-  
-  button.zero {
-    width: 50%;
-  }
-  
-  button.plus {
-    background-color: #5cb85c;
-    color: #fff;
-  }
-  
-  button.plus:hover {
-    background-color: #4cae4c;
-  }
-  
-  button.plus:active {
-    background-color: #449d44;
-  }
-  
-  button.plus:focus {
-    box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.5);
-  }
-  
-  button.minus {
-    background-color: #5bc0de;
-    color: #fff;
-  }
-  
-  button.minus:hover {
-    background-color: #46b8da;
-  }
-  
-  button.minus:active {
-    background-color: #39a4b1;
-  }
-  
-  button.minus:focus {
-    box-shadow: 0 0 0 3px rgba(91, 192, 222, 0.5);
-  }
-  
-  button.times {
-    background-color: #337ab7;
-    color: #fff;
-  }
-  
-  button.times:hover {
-    background-color: #286090;
-  }
-  
-  button.times:active {
-    background-color: #204d74;
-  }
-  
-  button.times:focus {
-    box-shadow: 0 0 0 3px rgba(51, 122, 183, 0.5);
-  }
-  
-  button.divide {
-    background-color: #d9534f;
-    color: #fff;
-  }
-  
-  button.divide:hover {
-    background-color: #c9302c;
-  }
-  
   
