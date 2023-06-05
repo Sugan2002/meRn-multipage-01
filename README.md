@@ -3,7 +3,12 @@
 # <p align="center">Multipage React Application</P>
 
 ## Aim:
-To create a react application for Tic Tac Toe game 
+To create multipage react app, which contains the following pages
+- First page : A landing page about yourself (portfolio/cv)
+
+- Second page : A calculator (using React forms)
+
+- Third page : Display all the cartoon characters from the "Rick and Morty Comic". API : https://rickandmortyapi.com/.
 
 ## Algorithm:
 
@@ -20,239 +25,261 @@ Step-5: Run the program in npm start
 
 ## Program
 
-### app.js
+### app.jsx
 ```javascript
-import React, { useState } from 'react';
-import "./App.css";
-
-function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null))
-  const nextValue = calculateNextValue(squares)
-  const winner = calculateWinner(squares)
-  const status = calculateStatus(winner, squares, nextValue)
-  
-  
-  // const way=calculateWinningWay(squares[a,b,c])
-  function selectSquare(square) {
-    if (winner || squares[square]) {
-      return 
-    }
-    const squaresCopy = [...squares]
-    squaresCopy[square] = nextValue
-    setSquares(squaresCopy)
-  }
-  
-
-  function restart() {
-    setSquares(Array(9).fill(null))
-  }
-
-  function renderSquare(i) {
-    return (
-      <button className="square" onClick={() => 
-      selectSquare(i)}>
-        {squares[i]}
-      </button>
-    )
-  }
-
-  return (
-    <div>
-      <div className='player'>
-      <div className='player1'>Player 1 : X</div>
-      <div className='player2'>Player 2 : O</div>
-      </div>
-      <div></div>
-      <div className="status">{status}</div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-      <button className="restart" onClick={restart}>
-        restart
-      </button>
-      
-
-   
-    
-    </div>
-  )
-}
-
-function Game() {
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Board />
-      </div>
-    </div>
-  )
-}
-
-function calculateStatus(winner, squares, nextValue) {
-  return winner
-  ? `Winner: ${winner}`
-  : squares.every(Boolean)
-  ? `It a Tie game`
-  : `Next player: ${nextValue}`
-    
-}
-
-
-
-function calculateNextValue(squares) {
-  return squares.filter(Boolean).length % 2 === 0 ? 'X' : 'O'
-}
-
-
-
-
-
-function calculateWinner(squares) {
-  
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ]
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i]
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a]
-    }
-  }
-  return null
-}
-
-
-
-
-
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Calculator from './components/Calculator/Calculator';
+import Portfolio from './components/Portfolio/Portfolio';
+import Comic from './components/Comic/Comic'
 function App() {
-
   return (
-    <div className='tic'>
-      <h1>TIC TAC TOE GAME</h1>
-    <div className='game-ui'>
-  <Game />
-  </div>
-  </div>
-  )
+    <React.Fragment>
+        <Router>
+          <Routes>
+          <Route path="/" element={<Portfolio/>}></Route>
+          <Route path="/calculator" element={<Calculator/>}></Route>
+          <Route path="/comic" element={<Comic/>}></Route>
+          </Routes>
+        </Router>
+    </React.Fragment>
+    
+  );
 }
 
-export default App
+export default App;
+
 
 ```
 
-### app.css
-```javascript
-.game {
-  font: 14px 'Century Gothic', Futura, sans-serif;
-  margin: 20px;
-  min-height: 260px;
-}
-.tic{
-  text-align: center;
+### Components
+## calculator.jsx
+```
+import React, { useState } from 'react';
+import './Calculator.css';
+
+function Calculator() {
+  const [input, setInput] = useState('');
+
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      const result = eval(input);
+      setInput(result.toString());
+    } catch (error) {
+      setInput('Error');
+    }
+  };
+
+  return (
+    <div>
+    <nav>
+                <ul id='mainMenu'>
+                  <li><a href="/">Portfolio</a></li>
+                  <li><a href="comic">Comic Characters</a></li>
+                </ul>
+      </nav> 
+      <br/>
+      <br/>
+   
+    <form onSubmit={handleSubmit}>
+    <div>
+              <h1 className='head'>Calculator</h1>
+      </div>
+      <input type="text" value={input} onChange={handleInput} />
+      
+      <br/>
+      <br/>
+      
+      <div className='butt'>
+      <div>
+        
+        <button type="button" onClick={() => setInput(input + '+')}>
+          ADD
+        </button>
+        <button type="button" onClick={() => setInput(input + '-')}>
+          SUBTRACT
+        </button>
+        <button type="button" onClick={() => setInput(input + '*')}>
+          MULTIPLY
+        </button>
+        <button type="button" onClick={() => setInput(input + '/')}>
+          DIVIDE
+        </button>
+        
+        
+      </div>
+      <br/>
+      <div>
+      <button type="button" onClick={() => setInput(input + '1')}>
+          1
+        </button>
+        <button type="button" onClick={() => setInput(input + '2')}>
+          2
+        </button>
+        <button type="button" onClick={() => setInput(input + '3')}>
+          3
+        </button>
+      </div>
+      <div>
+        <button type="button" onClick={() => setInput(input + '4')}>
+          4
+        </button>
+        <button type="button" onClick={() => setInput(input + '5')}>
+          5
+        </button>
+        <button type="button" onClick={() => setInput(input + '6')}>
+          6
+        </button>
+        
+      </div>
+      <div>
+      <button type="button" onClick={() => setInput(input + '7')}>
+          7
+        </button>
+        <button type="button" onClick={() => setInput(input + '8')}>
+          8
+        </button>
+        <button type="button" onClick={() => setInput(input + '9')}>
+          9
+        </button>
+      </div>
+      <br/>
+      <div>
+      <button type="clear" onClick={() => setInput('')}>
+          CLEAR
+        </button>
+        <button type="submit">=</button>
+      </div>
+      
+      </div>
+    </form>
+    </div>
+  );
 }
 
-.game-ui{
-  margin-left: 30%;
-  margin-top: 10%;
-  
+export default Calculator;
+```
+
+## comic.jsx
+```
+import {useEffect, useState} from 'react';
+import './Comic.css';
+import axios from 'axios';
+
+function App() {
+    const [characters, setCharacters] = useState([])
+    const [query, setQuery] = useState("")
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const {data} = await axios.get(`https://rickandmortyapi.com/api/character/?name=${query}`)
+                setCharacters(data.results)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchData()
+    }, [query])
+
+    return (
+        
+        <div className="App">
+        <div>
+        <nav>
+                <ul id='mainMenu'>
+                  <li><a href="/">Portfolio</a></li>
+                  <li><a href="calculator">Calculator</a></li>
+                </ul>
+      </nav>  
+      <br/>
+      </div>
+      <div className='head'>
+      <h1>Rick & Morty Characters</h1>
+      </div>
+            
+            <div className="search">
+                <input type="text"
+                       placeholder={"Search Character"}
+                       className={"input"}
+                       onChange={event => setQuery(event.target.value)}
+                       value={query}
+                />
+            </div>
+            <div className="results">
+                {characters.map(character => (
+                    
+                    <div>
+                        
+                        <img src={character.image} alt={character.name}/>
+                        {character.name}<br/>
+                        {character.status}<br/>
+                        {character.species}<br/>
+                        <br/>
+
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 }
 
-.game ol,
-.game ul {
-  padding-left: 30px;
+export default App;
+```
+
+## portfolio.jsx
+```
+import React, { Component } from 'react'
+import './Portfolio.css';
+
+export class Portfolio extends Component {
+  render() {
+    return (
+        <div>
+            <nav>
+                <ul id='mainMenu'>
+                  <li><a href="calculator">Calculator</a></li>
+                  <li><a href="comic">Comic Characters</a></li>
+                </ul>
+            </nav>
+            <br/>
+            <header class="head">
+            <h1>Suganya Parthiban</h1>
+            <p>Pre-final year Student</p>
+            </header>
+            <div className='edu'>
+            <h2>Education</h2>
+            <ul>
+                <li>
+                    <h3>B.Tech - Artificial Intelligence And Data Science</h3>
+                    <p>CGPA - 8.5</p>
+                    <p>Aug 2020 - Present</p>
+                    </li>
+                    <li>
+                        <h3>HSC - Kendriya Vidhyalaya</h3>
+            <p>Percentage - 75%</p>
+            <p>Apr 2018 - Mar 2020</p>
+          </li>
+          <li>
+            <h3>SSC - Navy Children School</h3>
+            <p>Percentage - 70%</p>
+            <p>Apr 2014 - Mar 2018</p>
+          </li>
+         </ul>
+        </div>
+        </div>
+    )
+  }
 }
 
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-
-.status {
-  margin-bottom: 10px;
-  font-size: 30px;
-  background-color: #f7b04e;
-  border-color: black;
-  border-radius: solid;
-  padding: 5px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-
-}
-
-.restart {
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 20px;
-  border: 2px solid #030303 ;
-}
-.player2{
-  float: right;
-  margin-top: -35px;
-  font-size: 25px;
-  
-}
-.player1{
-  float: left;
-  margin-top: -35px;
-  font-size: 25px;
-}
-.square {
-  background: #f9a95d;
-  border: 2px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 100px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 100px;
-}
-.player-status{
-  margin-left: 150%;
-  margin-top: 100%;
-}
-
-.square:focus {
-  outline: none;
-  background: #ddd;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
-  min-width: 190px;
-}
+export default Portfolio
 ```
 ## Links 
 
@@ -267,4 +294,4 @@ export default App
 ![image](https://github.com/Sugan2002/react-task/assets/77089743/a72a7f5a-3a9b-44e2-82fc-133d348fed91)
 
 ## Result
-Thus, a react application for Tic Tac Toe game  is successfully implemented.
+Thus, a multipage react application is successfully developed.
